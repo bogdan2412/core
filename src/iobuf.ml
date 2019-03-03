@@ -1077,7 +1077,7 @@ module Expert = struct
 
   let set_bounds_and_buffer ~src ~dst = set_bounds_and_buffer ~src ~dst
   let set_bounds_and_buffer_sub ~pos ~len ~src ~dst =
-    (set_bounds_and_buffer_sub [@inlined]) ~pos ~len ~src ~dst
+    set_bounds_and_buffer_sub ~pos ~len ~src ~dst
 end
 
 type ok_or_eof = Ok | Eof [@@deriving compare, sexp_of]
