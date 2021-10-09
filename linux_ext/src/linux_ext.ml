@@ -186,6 +186,9 @@ let cpu_list_of_string_exn str =
   |> List.dedup_and_sort ~compare:Int.compare
 ;;
 
+[%%import "config.h"]
+
+[%%ifdef JSC_LINUX_EXT]
 let cpu_list_of_file_exn file =
   match In_channel.with_file file ~f:In_channel.input_lines |> List.hd with
   | None -> []
@@ -203,6 +206,7 @@ let online_cpus =
 let cpus_local_to_nic ~ifname =
   cpu_list_of_file_exn (sprintf "/sys/class/net/%s/device/local_cpulist" ifname)
 ;;
+[%%endif]
 
 (* These module contains definitions that get used when the necessary features are not
    enabled. We put these somewhere where they'll always be compiled, to prevent them from
@@ -408,8 +412,6 @@ module Null : Linux_ext_intf.S = struct
 
   include Null_toplevel
 end
-
-[%%import "config.h"]
 
 [%%ifdef JSC_POSIX_TIMERS]
 module Clock = struct
