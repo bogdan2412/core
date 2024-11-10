@@ -1,3 +1,6 @@
+//Requires: caml_set_static_env
+//Always
+
 var dateTimeFormat =
     Intl
     && Intl.DateTimeFormat
@@ -9,7 +12,5 @@ var resolvedOptions =
 var tz = resolvedOptions && resolvedOptions.timeZone
 // If a timezone is available, set the TZ env variable.
 if(tz){
-  if(!joo_global_object.jsoo_static_env)
-    joo_global_object.jsoo_static_env = {};
-  joo_global_object.jsoo_static_env.TZ = tz;
+  caml_set_static_env("TZ", tz);
 }
