@@ -441,7 +441,9 @@ module For_testing = struct
           ~minor_words_allocated:!minor_allocs
       , List.rev !log )
     | exception Failure msg ->
-      if String.equal msg "Gc.memprof.start: not implemented in multicore"
+      if String.equal
+           (String.lowercase msg)
+           (String.lowercase "Gc.memprof.start: not implemented in multicore")
       then (
         let a, b = (measure_allocation_for_runtime5_local [@kind k]) f in
         a, b, [])
